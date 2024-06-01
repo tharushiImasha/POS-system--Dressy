@@ -47,6 +47,9 @@
 const customerForm = document.getElementById("customer-registration-form")
 const customersTableBody = document.getElementById('customers-table').querySelector('tbody');
 
+document.getElementById("cus-update").style.display = "none"
+
+
 const customers = []
 
 customerForm.addEventListener('submit', (event) => {
@@ -93,21 +96,59 @@ function buildTable(){
     //     customersTableBody.appendChild(row)
     // }
 
+
+
+    // <td><button onclick="removeRow(${customer.cusId})">Remove</button></td>
+
+    // html += `<td><button onclick="deleteData(' + index +')" class = "btn btn-danger">Delete</button>
+    // <button onclick="updateData(' + index +')" class = "btn btn-warning m-2">Edit</button></td>`;
+
     // table.innerHTML += row
 
+
+
+
+
+
+
+
+    // customersTableBody.innerHTML = '';
+    // customers.forEach(customer => {
+    //     const row = document.createElement('tr');
+    //     row.innerHTML = `
+    //         <td>${customer.cusId}</td>
+    //         <td>${customer.firstName}</td>
+    //         <td>${customer.lastName}</td>
+    //         <td>${customer.address}</td>
+    //         <td>${customer.phone}</td>
+    //         <td><button onclick="deleteData(' + customer.cusId +')" class = "btn btn-danger">Delete</button>
+    //         <button onclick="updateData(${customer.cusId})" class = "btn btn-warning m-2">Edit</button></td>
+    //     `;
+    //     customersTableBody.appendChild(row);
+    // });
+
+
+
+
+
+
     customersTableBody.innerHTML = '';
-    customers.forEach(customer => {
+    customers.forEach(function (element, index) {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${customer.cusId}</td>
-            <td>${customer.firstName}</td>
-            <td>${customer.lastName}</td>
-            <td>${customer.address}</td>
-            <td>${customer.phone}</td>
-            <td><button onclick="removeRow(${customer.cusId})">Remove</button></td>
+            <td>${element.cusId}</td>
+            <td>${element.firstName}</td>
+            <td>${element.lastName}</td>
+            <td>${element.address}</td>
+            <td>${element.phone}</td>
+            <td>
+                <button onclick="deleteData(${index})" class="btn btn-danger">Delete</button>
+                <button onclick="updateData(${index})" class="btn btn-warning m-2">Edit</button>
+            </td>
         `;
         customersTableBody.appendChild(row);
     });
+
 
 }
 
@@ -115,24 +156,65 @@ function buildTable(){
 // //   alert("Row index is: " + x.rowIndex);
 // }
 
-function removeRow(customerId){
-    for(let i = 0; i < customers.length; i++){
-        if(customerId == customers[i].cusId){
-            customers.splice(i, 1)
-        }
-    }
 
-    console.log(customers)
-
-    clearTable();
-
+function deleteData(index){
+    customers.splice(index, 1);
     buildTable();
 }
 
-function clearTable(){
-    let rowCount = table.rows.length;
-    for(let i = rowCount-1; i > 0; i--){
-        table.deleteRow(i);
+
+// function removeRow(customerId){
+//     for(let i = 0; i < customers.length; i++){
+//         if(customerId == customers[i].cusId){
+//             customers.splice(i, 1)
+//         }
+//     }
+
+//     console.log(customers)
+
+//     clearTable();
+
+//     buildTable();
+// }
+
+// function clearTable(){
+//     let rowCount = table.rows.length;
+//     for(let i = rowCount-1; i > 0; i--){
+//         table.deleteRow(i);
+//     }
+// }
+
+
+
+
+function updateData(index){
+    document.getElementById("cus-update").style.display = "block"
+    document.getElementById("cus-add").style.display = "none"
+
+    document.getElementById("cusId").value = customers[index].cusId;
+    document.getElementById("firstName").value = customers[index].firstName;
+    document.getElementById("lastName").value = customers[index].lastName;
+    document.getElementById("address").value = customers[index].address;
+    document.getElementById("phone").value = customers[index].phone;
+
+    document.querySelector('#cus-update').onclick = function(){
+
+        customers[index].cusId = document.getElementById("cusId").value;
+        customers[index].firstName = document.getElementById("firstName").value;
+        customers[index].lastName = document.getElementById("lastName").value;
+        customers[index].address = document.getElementById("address").value;
+        customers[index].phone = document.getElementById("phone").value;
+
+        buildTable();
+        customerForm.reset();
+
+        console.log(customers)
+
+        document.getElementById("cus-update").style.display = "none"
+        document.getElementById("cus-add").style.display = "block"
+
+        document.querySelector('#cus-update').onclick = null;
+
     }
 }
 
