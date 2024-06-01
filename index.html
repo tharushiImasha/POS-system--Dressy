@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dressy</title>
+    <link rel="stylesheet" href="/css/index.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <header>
+        <h1>Dress<span style="color: #644592;">y.</span></h1>
+        <nav class="container">
+            <ul>
+                <li><a href="index.html" class="nav-bar" id="home">Home</a></li>
+                <li><a href="#items" class="nav-bar" id="items">Items</a></li>
+                <li><a href="#customers" class="nav-bar" id="customers">Customers</a></li>
+                <li><a href="#blogs" class="nav-bar" id="orders">Orders</a></li>
+                <li><a href="" class="menu"> <i class="fa fa-bars" aria-hidden="true"></i> </a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home-page" class="home section active">
+
+        <div class="home-cont">
+            <h2 class="costumes">
+                COSTUMES
+            </h2>
+        
+            <div class="grid-flex">
+                <div class="grid-cont">
+                    <h2 style="text-align: left">SHOP</h2>
+                    <h2 style="text-align: right">NOW</h2>
+                    <p>
+                        Discover the latest trends and timeless <br> styles, tailored to fit your unique <br> personality and
+                        elevate your everyday <br>
+                        wardrobe.
+                    </p>
+                    <div class="white-box-container">
+                        <div class="white-box">
+                            <img src="/assets/white-tshirt-light-background .png" alt="">
+                            <div class="box-desc">
+                                <h4>White Tshirt</h4>
+                                <p>Rs. 2500.00</p>
+                                <div class="rating">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                </div>
+                            </div>
+        
+                        </div>
+        
+                    </div>
+        
+                    <div class="black-box-container">
+                        <div class="white-box">
+                            <img src="/assets/black-tshirt-light-background .png" alt="">
+                            <div class="box-desc">
+                                <h4>Black Tshirt</h4>
+                                <p>Rs. 2500.00</p>
+                                <div class="rating">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                </div>
+                            </div>
+                        </div>
+        
+                    </div>
+                    <p style="text-align: right">
+                        Step into our store and transform <br> your look with chic, comfortable, <br> and contemporary fashion
+                        <br> designed just for you.
+                    </p>
+        
+                </div>
+            </div>
+        
+            <div class="girl">
+                <img src="/assets/bg-girl.png" alt="girl" class="girl-img">
+            </div>
+        </div>
+
+    </section>
+
+    <section class="customers section" id="customers-page">
+
+        <section class="cus-top">
+
+            <img src="/assets/bg-girl.png" alt="girl" class="girl-img-customer">
+            
+            <div class="customer-box">
+            
+                <form id="customer-registration-form">
+                    <h2>Customer Registration</h2>
+            
+                    <div class="inputs">
+            
+                        <div class="cus-input">
+                            <div class="label-input">
+                                <label for="cusId"> Customer ID : </label>
+                                <input type="text" name="cusId" id="cusId">
+                                <span class="error" id="cusIdError"></span>
+                            </div>
+            
+                            <div class="label-input" style="visibility: hidden;">
+                                <label for="cusId"> Customer ID : </label>
+                                <input type="text" name="cusId" id="hide">
+                                <span class="error" id="cusIdError"></span>
+                            </div>
+                        </div>
+            
+                        <div class="cus-input">
+            
+                            <div class="label-input">
+                                <label for="first name"> First Name : </label>
+                                <input type="text" name="firstName" id="firstName">
+                                <span class="error" id="firstNameError"></span>
+                            </div>
+            
+                            <div class="label-input">
+                                <label for="last name"> Last Name : </label>
+                                <input type="text" name="lastName" id="lastName">
+                                <span class="error" id="lastNameError"></span>
+                            </div>
+            
+                        </div>
+            
+                        <div class="cus-input">
+            
+                            <div class="label-input">
+                                <label for="address"> Address : </label>
+                                <input type="text" name="address" id="address">
+                                <span class="error" id="addressError"></span>
+                            </div>
+            
+                            <div class="label-input">
+                                <label for="phone"> Telephone : </label>
+                                <input type="number" name="telephone" id="phone">
+                                <span class="error" id="phoneError"></span>
+                            </div>
+            
+                        </div>
+            
+                        <div class="btn-cus">
+                            <button type="submit"> Register </button>
+                        </div>
+            
+            
+                    </div>
+            
+                </form>
+            
+            </div>
+
+        </section>
+
+        <section class="customer-table">
+
+            <div class="cus-table">
+            
+                <table class="table table-hover table-secondary" id="customers-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Customer ID</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Telephone</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="my-table">
+                        
+                    </tbody>
+                </table>
+            
+            </div>
+
+        </section>
+
+              
+    </section>
+
+
+    <section class="items section" id="items-page">
+
+        <section class="item-top">
+
+            <img src="/assets/bg-girl.png" alt="girl" class="girl-img-items">
+            
+            <div class="customer-box">
+            
+                <form id="item-registration-form">
+                    <h2>Add Costumes</h2>
+            
+                    <div class="inputs">
+            
+                        <div class="cus-input">
+                            <div class="label-input">
+                                <label for="costumeId"> Costume ID : </label>
+                                <input type="text" name="costumeId" id="costumeId">
+                                <span class="error" id="costumeIdError"></span>
+                            </div>
+            
+                            <div class="label-input">
+                                <label for="img">Select image:</label>
+                                <input type="file" id="img" name="img" accept="image/*"
+                                    style="background-color: white; padding: 5px;">
+                            </div>
+                        </div>
+            
+                        <div class="cus-input">
+            
+                            <div class="label-input">
+                                <label for="type"> Type : </label>
+                                <input type="text" name="type" id="type">
+                                <span class="error" id="typeError"></span>
+                            </div>
+            
+                            <div class="label-input">
+                                <label for="color"> Color : </label>
+                                <input type="text" name="color" id="color">
+                                <span class="error" id="colorError"></span>
+                            </div>
+            
+                        </div>
+            
+                        <div class="cus-input">
+            
+                            <div class="label-input">
+                                <label for="amount"> Amount : </label>
+                                <input type="text" name="amount" id="amount">
+                                <span class="error" id="amountError"></span>
+                            </div>
+            
+                            <div class="label-input">
+                                <label for="price"> Unit Price : </label>
+                                <input type="number" name="price" id="price">
+                                <span class="error" id="priceError"></span>
+                            </div>
+            
+                        </div>
+            
+                        <div class="btn-cus">
+                            <button type="submit"> Add </button>
+                        </div>
+            
+            
+                    </div>
+            
+                </form>
+            
+            </div>
+
+        </section>
+
+        <section class="item-bottom">
+
+            <div class="cos-flex">
+            
+                <div class="costumes-cards">
+            
+                    <div class="cos-card">
+                        <div class="image">
+                            <img src="/assets/cos-1.jpg" alt="cos-1" class="cos-img">
+                        </div>
+            
+                        <div class="card-content">
+                            <h3>Black T-shirt - Men</h3>
+                            <div class="color">
+                                <div class="rating">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                </div>
+                                <p>Color : Black</p>
+                            </div>
+                            <p class="price">Rs. 2500.00</p>
+                        </div>
+                    </div>
+            
+                    <div class="cos-card">
+                        <div class="image">
+                            <img src="/assets/cos-1.jpg" alt="cos-1" class="cos-img">
+                        </div>
+            
+                        <div class="card-content">
+                            <h3>Black T-shirt - Men</h3>
+                            <div class="color">
+                                <div class="rating">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                </div>
+                                <p>Color : Black</p>
+                            </div>
+                            <p class="price">Rs. 2500.00</p>
+                        </div>
+                    </div>
+            
+                    <div class="cos-card">
+                        <div class="image">
+                            <img src="/assets/cos-1.jpg" alt="cos-1" class="cos-img">
+                        </div>
+            
+                        <div class="card-content">
+                            <h3>Black T-shirt - Men</h3>
+                            <div class="color">
+                                <div class="rating">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                </div>
+                                <p>Color : Black</p>
+                            </div>
+                            <p class="price">Rs. 2500.00</p>
+                        </div>
+                    </div>
+            
+                </div>
+            
+            </div>
+
+        </section>
+    
+    </section>
+
+    <script src="/js/index.js"></script>
+    <script src="/js/functions.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
+
+</body>
+</html>    
