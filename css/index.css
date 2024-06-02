@@ -457,3 +457,10 @@ button {
     border-radius: 20px;
     margin-bottom: 100px;
 }
+
+#customerIdOrder{
+    width: 400px;
+    height: 43px;
+    border-radius: 10px;
+    border: 1px solid #644592;
+}

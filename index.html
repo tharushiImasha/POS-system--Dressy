@@ -123,15 +123,15 @@
                         <div class="cus-input">
             
                             <div class="label-input">
-                                <label for="first name"> First Name : </label>
-                                <input type="text" name="firstName" id="firstName">
-                                <span class="error" id="firstNameError"></span>
+                                <label for="full name"> Full Name : </label>
+                                <input type="text" name="fullName" id="fullName">
+                                <span class="error" id="fullNameError"></span>
                             </div>
             
                             <div class="label-input">
-                                <label for="last name"> Last Name : </label>
-                                <input type="text" name="lastName" id="lastName">
-                                <span class="error" id="lastNameError"></span>
+                                <label for="email"> Email : </label>
+                                <input type="email" name="email" id="email">
+                                <span class="error" id="emailError"></span>
                             </div>
             
                         </div>
@@ -170,12 +170,12 @@
 
             <div class="cus-table">
             
-                <table class="table table-hover table-secondary" id="customers-table">
+                <table class="table table-hover" id="customers-table">
                     <thead>
                         <tr>
                             <th scope="col">Customer ID</th>
-                            <th scope="col">First Name</th>
-                            <th scope="col">Last Name</th>
+                            <th scope="col">Fullt Name</th>
+                            <th scope="col">Email</th>
                             <th scope="col">Address</th>
                             <th scope="col">Telephone</th>
                             <th scope="col">Action</th>
@@ -356,7 +356,7 @@
     
             <div class="order-box" style="height: 590px;">
     
-                <form id="customer-registration-form">
+                <form id="invoice-details-form">
                     <h2>Invoice Details</h2>
     
                     <div class="inputs">
@@ -384,11 +384,12 @@
                             </div>
     
                             <div class="label-input">
-                                <label for="last name"> Customer ID : </label>
-                                <input type="text" name="lastName" id="lastName">
-                                <span class="error" id="lastNameError"></span>
+                                <label for="cusId"> Customer ID : </label>
+                                <!-- <input type="text" name="lastName" id="lastName"> -->
+                                <select class="form-select text-warning " aria-label="Default select example" id="customerIdOrder"></select>
+                                <span class="error" id="cusIdError"></span>
                             </div>
-    
+
                         </div>
     
                         <div class="cus-input">
@@ -415,7 +416,7 @@
 
             <div class="order-box">
             
-                <form id="customer-registration-form">
+                <form id="item-select-form">
                     <h2>Item Select</h2>
             
                     <div class="inputs">
@@ -479,7 +480,7 @@
 
             <div class="invoice" style="height: 590px;">
             
-                <form id="customer-registration-form">
+                <form id="invoice-form">
 
                     <div class="total-content">
                         <div class="total">
@@ -514,7 +515,7 @@
                         </div>
             
                         <div class="btn-cus">
-                            <button type="submit" style="align-self: flex-end;"> Purchase </button>
+                            <button type="button" style="align-self: flex-end;" id="purchase"> Purchase </button>
                         </div>
 
                     </div>
@@ -529,14 +530,14 @@
         
             <div class="cus-table">
         
-                <table class="table table-hover table-secondary" id="customers-table">
+                <table class="table table-hover" id="customers-table">
                     <thead>
                         <tr>
-                            <th scope="col">Customer ID</th>
-                            <th scope="col">First Name</th>
-                            <th scope="col">Last Name</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">Telephone</th>
+                            <th scope="col">Item Code</th>
+                            <th scope="col">Item Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -551,8 +552,18 @@
 
     </section>    
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script src="/js/index.js"></script>
-    <script src="/js/functions.js"></script>
+    <!-- <script src="/js/functions.js"></script> -->
+    <script src="/db/DB.js"></script>
+
+    <script src="/model/customerModel.js"></script>
+    <script src="/controller/validation/customerValidation.js"></script>
+    <script src="/controller/customerController.js"></script>
+
+    <script src="/model/orderModel.js"></script>
+    <script src="/controller/ordersController.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
