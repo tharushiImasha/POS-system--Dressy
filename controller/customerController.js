@@ -111,10 +111,11 @@ customerForm.addEventListener('submit', (event) => {
 
         customers.push(customer);
 
-        buildTable(customers)
+        buildTable()
 
         customerForm.reset();
         generateId();
+        loadCusIds();
     }
 
     
