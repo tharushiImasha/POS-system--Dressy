@@ -403,16 +403,16 @@
                         <div class="cus-input">
     
                             <div class="label-input">
-                                <label for="first name"> Customer Name : </label>
-                                <input type="search" name="cusName" id="cusName">
-                                <span class="error" id="firstNameError"></span>
-                            </div>
-    
-                            <div class="label-input">
                                 <label for="cusId"> Customer ID : </label>
                                 <!-- <input type="text" name="lastName" id="lastName"> -->
                                 <select class="form-select" aria-label="Default select example" id="customerIdOrder"></select>
                                 <span class="error" id="cusIdError"></span>
+                            </div>
+
+                            <div class="label-input">
+                                <label for="first name"> Customer Name : </label>
+                                <input type="search" name="cusName" id="cusName">
+                                <span class="error" id="firstNameError"></span>
                             </div>
 
                         </div>
@@ -450,6 +450,7 @@
                             <div class="label-input">
                                 <label for="orderId"> Item Code : </label>
                                 <select class="form-select" aria-label="Default select example" id="itemIdOrder"></select>
+                                <span class="error" id="itemCodeError"></span>
                             </div>
             
                             <div class="label-input">
@@ -504,35 +505,34 @@
 
                     <div class="total-content">
                         <div class="total">
-                            <h3>Total :</h3>
-                            <!-- <label for="toatl" id="orderTotal">Rs. 0.00/=</label> -->
-                            <input type="text" name="toatl" id="orderToatl" placeholder="Rs. 0.00/=">
+                            <h3 style="margin-bottom: 0px;">Total :</h3>
+                            <label for="toatl" id="orderTotal">Rs. 0.00/=</label>
+                            <!-- <input type="text" name="toatl" id="orderToatl" placeholder="Rs. 0.00/="> -->
                         </div>
                         
                         <div class="subTotal">
-                            <h3>Sub Total :</h3>
-                            <label for="subToatl">Rs. 0.00/=</label>
+                            <h3 style="margin-bottom: 0px;">Sub Total :</h3>
+                            <label for="subTotal" id="subTotal">Rs. 0.00/=</label>
                         </div>
                     </div>
             
                     <div class="inputs">
-            
-                        <div class="label-input">
-                            <label for="first name"> Cash : </label>
-                            <input type="search" name="firstName" id="firstName">
-                            <span class="error" id="firstNameError"></span>
-                        </div>
         
                         <div class="label-input">
-                            <label for="last name"> Discount : </label>
-                            <input type="text" name="lastName" id="lastName">
-                            <span class="error" id="lastNameError"></span>
+                            <label for="discount"> Discount : </label>
+                            <input type="text" name="discount" id="discount">
+                            <span class="error" id="discountError"></span>
                         </div>
 
                         <div class="label-input">
-                            <label for="last name"> Balance : </label>
-                            <input type="text" name="lastName" id="lastName">
-                            <span class="error" id="lastNameError"></span>
+                            <label for="cash"> Cash : </label>
+                            <input type="text" name="cash" id="cash">
+                            <span class="error" id="cashError"></span>
+                        </div>
+
+                        <div class="label-input">
+                            <label for="balance"> Balance : </label>
+                            <input type="text" name="balance" id="balance">
                         </div>
             
                         <div class="btn-cus">

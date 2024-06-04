@@ -228,6 +228,7 @@ input {
     height: 43px;
     border-radius: 10px;
     border: 1px solid #644592;
+    padding: 10px;
 }
 
 .label-input{
