@@ -39,18 +39,28 @@ function loadCusIds() {
     $('#customerIdOrder').append(optionCus);
 }
 
+$(document).ready(function() {
+    $('#customerIdOrder').select2({
+        placeholder: "Select a customer",
+        allowClear: true
+    });
 
-document.getElementById('customerIdOrder').addEventListener('change', function() {
-    let selectedId = this.value;
-    console.log(selectedId);
-
-    for(let i = 0; i < customers.length; i++){
-        if(customers[i].cusId === selectedId){
-            document.getElementById('cusPhone').value = customers[i].phone;
-            document.getElementById('cusAddress').value = customers[i].address;
-            document.getElementById('cusName').value = customers[i].fullName;
+    $('#customerIdOrder').on('change', function() {
+        let selectedcusId = $(this).val();
+        
+        for(let i = 0; i < customers.length; i++){
+            if(customers[i].cusId === selectedcusId){
+                document.getElementById('cusPhone').value = customers[i].phone;
+                document.getElementById('cusAddress').value = customers[i].address;
+                document.getElementById('cusName').value = customers[i].fullName;
+            }
         }
+    });
+
+    function clearCusSelect() {
+        $('#customerIdOrder').val(null).trigger('change');
     }
+
 });
 
 
@@ -70,19 +80,42 @@ function loadItemIds() {
     $('#itemIdOrder').append(optionItem);
 }
 
+$(document).ready(function() {
+    $('#itemIdOrder').select2({
+        placeholder: "Select an item",
+        allowClear: true
+    });
 
-document.getElementById('itemIdOrder').addEventListener('change', function() {
-    let selectedItemId = this.value;
-
-    for(let i = 0; i < items.length; i++){
-        if(items[i].costumeId === selectedItemId){
-            document.getElementById('itemName').value = items[i].type;
-            document.getElementById('itemColor').value = items[i].color;
-            document.getElementById('itemPrice').value = items[i].price;
-            document.getElementById('itemQtyOnHand').value = items[i].amount;
+    $('#itemIdOrder').on('change', function() {
+        let selectedItemId = $(this).val();
+        
+        for(let i = 0; i < items.length; i++){
+            if(items[i].costumeId === selectedItemId){
+                document.getElementById('itemName').value = items[i].type;
+                document.getElementById('itemColor').value = items[i].color;
+                document.getElementById('itemPrice').value = items[i].price;
+                document.getElementById('itemQtyOnHand').value = items[i].amount;
+            }
         }
-    }
+    });
+
 });
+
+
+// document.getElementById('itemIdOrder').addEventListener('change', function() {
+//     let selectedItemId = document.getElementById('itemIdOrder');
+//     console.log(selectedItemId)
+
+
+//     for(let i = 0; i < items.length; i++){
+//         if(items[i].costumeId === selectedItemId){
+//             document.getElementById('itemName').value = items[i].type;
+//             document.getElementById('itemColor').value = items[i].color;
+//             document.getElementById('itemPrice').value = items[i].price;
+//             document.getElementById('itemQtyOnHand').value = items[i].amount;
+//         }
+//     }
+// });
 
 
 function validateOrderForm(){
@@ -122,7 +155,6 @@ function checkAmount(){
     if (itemQtyOnHand < qty){
         $("#orderQtyError").text("Not Enough stock");
         $("#orderQty").css("border-color",  "red");
-        // qty.value = '';
         return false;
     }else{
         $("#orderQtyError").text("");
@@ -144,6 +176,21 @@ document.querySelector('#addItem').onclick = function(){
 
     if(validateOrderForm() && checkAmount()){
         buildOrderTable();
+
+        let orderQuntity = document.getElementById("orderQty").value;
+
+        let selectedItemId =  $('#itemIdOrder').val();
+
+        for(let i = 0; i < items.length; i++){
+            console.log("id :" +items[i].costumeId)
+            console.log("check :" +selectedItemId)
+
+            if(items[i].costumeId === selectedItemId){
+                let qtyOH = document.getElementById('itemQtyOnHand').value;
+                items[i].amount = qtyOH - orderQuntity;
+            }
+        }
+
         getItemTotal();
         getTotalColumnSum();
         orderItemForm.reset();
@@ -159,7 +206,6 @@ function getItemTotal(){
     let unitPrice = document.getElementById('itemPrice').value
 
     total = qty*unitPrice;
-    console.log("tot : "+ total)
 
     return total;
 
@@ -194,6 +240,18 @@ function buildOrderTable(){
 
 function deleteRow(button) {
     const row = button.closest('tr');
+    const cells = row.querySelectorAll('td');
+
+    let orderQuntity = cells[3].textContent;
+
+    let selectedItemId = cells[0].textContent;
+
+    for(let i = 0; i < items.length; i++){
+        if(items[i].costumeId === selectedItemId){            
+            items[i].amount = parseInt(items[i].amount) + parseInt(orderQuntity);
+        }
+    }
+
     row.parentNode.removeChild(row);
 }
 
@@ -206,10 +264,21 @@ function editRow(button) {
     document.getElementById('itemPrice').value = cells[2].textContent;
     document.getElementById('orderQty').value = cells[3].textContent;
     document.getElementById('orderTotal').value = cells[4].textContent;
-    // document.getElementById('itemColor').value = ''
-    // document.getElementById('itemQtyOnHand').value = ''
 
-    deleteRow(button);
+    let selectedItemId =  $('#itemIdOrder').val();
+    let orderQuntity = document.getElementById("orderQty").value;
+
+    for(let i = 0; i < items.length; i++){
+        if(items[i].costumeId === selectedItemId){
+            document.getElementById('itemColor').value = items[i].color;
+
+            items[i].amount = parseInt(items[i].amount) + parseInt(orderQuntity);
+            
+            document.getElementById('itemQtyOnHand').value = items[i].amount;
+        }
+    }
+
+    row.parentNode.removeChild(row);    
 }
 
 
@@ -232,7 +301,7 @@ function getTotalColumnSum() {
 
     console.log("Total Sum: " + totalSum);
 
-    document.getElementById('orderTotal').innerHTML = totalSum;
+    document.getElementById('orderTotal').innerHTML = "Rs. " +totalSum.toFixed(2);
 
     return totalSum;
 }
@@ -276,11 +345,11 @@ $("#discount").keydown(function (e) {
         const discount = document.getElementById('discount').value;
         const totalSum = getTotalColumnSum(); // Get the total sum of the order
         const discountedTotal = applyDiscount(totalSum, discount);
-        document.getElementById('subTotal').innerHTML = discountedTotal.toFixed(2); // Update the subtotal field
+        document.getElementById('subTotal').innerHTML = "Rs. " +discountedTotal.toFixed(2); // Update the subtotal field
 
         if(discount == ""){
             discountedTotal = totalSum;
-            document.getElementById('subTotal').innerHTML = discountedTotal.toFixed(2);
+            document.getElementById('subTotal').innerHTML = "Rs. " +discountedTotal.toFixed(2);
         }
     }
     
@@ -295,13 +364,13 @@ function applyDiscount(totalSum, discount){
 }
 
 function checkCash(){
-    let cash = document.getElementById('cash').value
+    let cash = parseFloat(document.getElementById('cash').value);
     console.log("cash :"+ cash)
 
-    let subTotal = document.getElementById('subTotal').innerHTML;
+    let subTotal = parseFloat(document.getElementById('subTotal').innerHTML);
     console.log("discount :"+ subTotal)
 
-    if(cash < subTotal){
+    if (isNaN(cash) || isNaN(subTotal) || cash < subTotal){
         $("#cashError").text("Not enough cash amount");
         $("#cash").css("border-color",  "red");
         return false;
@@ -319,7 +388,8 @@ $("#cash").keydown(function (e){
 
     let cash = document.getElementById('cash').value
 
-    let subTotal = document.getElementById('subTotal').innerHTML;
+    let subTotalString = document.getElementById('subTotal').innerHTML;
+    let subTotal = parseFloat(subTotalString.split("Rs. ")[1]);
 
     if(e.keyCode == 13) {
         if(checkCash){
@@ -352,26 +422,8 @@ document.querySelector('#purchase').onclick = function(){
         document.getElementById('subTotal').innerHTML = "Rs.0.00";
         document.getElementById('orderTotal').innerHTML = "Rs.0.00";
 
-        let orderQuntity = document.getElementById("orderQty").value;
-
-        let selectedItemId =  $('#itemIdOrder').val();
-
-        for(let i = 0; i < items.length; i++){
-            console.log("id :" +items[i].costumeId)
-            console.log("check :" +selectedItemId)
-
-            if(items[i].costumeId === selectedItemId){
-                let qtyOH = document.getElementById('itemQtyOnHand').value;
-                items[i].amount = qtyOH - orderQuntity;
-                console.log("awaaa")
-            } else{
-                console.log("nathoo")
-            }
-        }
-
-        // items.amount = qtyOH - orderQuntity;
-
         generateOrderId();
+        buildAllOrderTable(orders);
         getDate();
     }
 

@@ -23,6 +23,7 @@ document.getElementById("home-page").style.display = "block";
 document.getElementById("customers-page").style.display = "none";
 document.getElementById("items-page").style.display = "none";
 document.getElementById("orders-page").style.display = "none";
+document.getElementById("all-orders").style.display = "none";
 
 document.getElementById("home").addEventListener("click", function(event){
 
@@ -32,6 +33,7 @@ document.getElementById("home").addEventListener("click", function(event){
     document.getElementById("customers-page").style.display = "none";
     document.getElementById("items-page").style.display = "none";
     document.getElementById("orders-page").style.display = "none";
+    document.getElementById("all-orders").style.display = "none";
 })
 
 document.getElementById("items").addEventListener("click", function(){
@@ -39,6 +41,7 @@ document.getElementById("items").addEventListener("click", function(){
     document.getElementById("customers-page").style.display = "none";
     document.getElementById("items-page").style.display = "block";
     document.getElementById("orders-page").style.display = "none";
+    document.getElementById("all-orders").style.display = "none";
 })
 
 document.getElementById("customers").addEventListener("click", function(){
@@ -46,6 +49,7 @@ document.getElementById("customers").addEventListener("click", function(){
     document.getElementById("customers-page").style.display = "block";
     document.getElementById("items-page").style.display = "none";
     document.getElementById("orders-page").style.display = "none";
+    document.getElementById("all-orders").style.display = "none";
 })
 
 document.getElementById("orders").addEventListener("click", function(){
@@ -53,6 +57,15 @@ document.getElementById("orders").addEventListener("click", function(){
     document.getElementById("customers-page").style.display = "none";
     document.getElementById("items-page").style.display = "none";
     document.getElementById("orders-page").style.display = "block";
+    document.getElementById("all-orders").style.display = "none";
+})
+
+document.getElementById("checkOrders").addEventListener("click", function(){
+    document.getElementById("home-page").style.display = "none";
+    document.getElementById("customers-page").style.display = "none";
+    document.getElementById("items-page").style.display = "none";
+    document.getElementById("orders-page").style.display = "none";
+    document.getElementById("all-orders").style.display = "block";
 })
 
 
