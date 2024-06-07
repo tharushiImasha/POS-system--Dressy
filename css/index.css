@@ -62,6 +62,12 @@ header>h1 {
 
 .container {
     margin: 8px 50px;
+    /* display: flex; */
+    align-items: center;
+}
+
+.container ul{
+    margin-bottom: 0px;
 }
 
 .container ul li {
@@ -118,9 +124,6 @@ a {
     grid-template-columns: repeat(2, 1fr);
     justify-content: center;
     column-gap: 350px;
-    /* margin-left: 220px;
-    margin-right: 220px; */
-
 }
 
 .grid-cont > h2{
