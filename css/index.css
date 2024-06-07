@@ -44,7 +44,7 @@ header {
     top: 0;
     background-color: transparent;
     width: 100vw;
-    height: 5vw;
+    height: 7vw;
     z-index: 500;
     transition: background-color 0.3s ease;
 }
@@ -281,7 +281,10 @@ button {
 }
 
 .cus-table{
-    margin: 70px 150px;
+    margin: 70px 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .table-danger{
