@@ -1,0 +1,27 @@
+@media screen and (max-width: 815px) {
+    .item-box {
+        height: 650px !important;
+    }
+}
+
+@media screen and (max-width: 670px) {
+    .item-box {
+        height: 850px !important;
+    }
+}
+
+@media screen and (max-width: 560px) {
+    .girl-img-items {
+        width: 400px;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .girl-img-items {
+        width: 350px;
+    }
+
+    .customer-box {
+        width: 340px;
+    }
+}

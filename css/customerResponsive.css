@@ -22,10 +22,12 @@
         width: 250px;
     }
 
-    .btn {
-        width: 100px;
-        height: 35px;
+    .actionBtn{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
+
 }
 
 @media screen and (max-width: 670px) {
@@ -51,13 +53,9 @@
         gap: 5px;
     }
 
-    .btn{
-        width: 100px;
-        height: 35px;
-    }
-
     .table-hover{
         width: 500px !important;
+        font-size: 13px;
     }
 }
 
@@ -99,11 +97,33 @@
     .table-hover {
         width: 300px !important;
     }
+
+    .btn {
+        width: 30px;
+        height: 30px;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .btn {
+        width: 30px;
+        height: 30px;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .table-hover {
+        font-size: 10px;
+    }
 }
 
 @media screen and (max-width: 460px) {
     .customer-box {
-        width: 380px;
+        width: 340px;
     }
 
     input {
@@ -116,5 +136,17 @@
 
     .customer-box>form>h2 {
         font-size: 26px;
+    }
+
+    .emailCol{
+        display: none;
+    }
+
+    .emailJs{
+        display: none;
+    }
+
+    .girl-img-customer {
+        width: 350px;
     }
 }

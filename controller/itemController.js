@@ -134,9 +134,9 @@ function buildItemTable(){
             <td>${element.color}</td>
             <td>${element.amount}</td>
             <td>${element.price}</td>
-            <td>
-                <button onclick="deleteItemData(${index})" class="btn btn-danger">Delete</button>
-                <button onclick="updateItemData(${index})" class="btn btn-warning m-2">Edit</button>
+            <td class = "actionBtn">
+                <button onclick="deleteItemData(${index})" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                <button onclick="updateItemData(${index})" class="btn btn-warning m-2"><i class="fa fa-pencil" aria-hidden="true"></i></button>
             </td>
         `;
         itemTableBody.appendChild(row);

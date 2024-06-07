@@ -131,12 +131,12 @@ function buildTable(){
         row.innerHTML = `
             <td>${element.cusId}</td>
             <td>${element.fullName}</td>
-            <td>${element.email}</td>
+            <td class = "emailJs">${element.email}</td>
             <td>${element.address}</td>
             <td>${element.phone}</td>
-            <td>
-                <button onclick="deleteData(${index})" class="btn btn-danger">Delete</button>
-                <button onclick="updateData(${index})" class="btn btn-warning m-2">Edit</button>
+            <td class = "actionBtn">
+                <button onclick="deleteData(${index})" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                <button onclick="updateData(${index})" class="btn btn-warning m-2"><i class="fa fa-pencil" aria-hidden="true"></i></button>
             </td>
         `;
         customersTableBody.appendChild(row);

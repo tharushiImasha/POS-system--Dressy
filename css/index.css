@@ -291,6 +291,15 @@ button {
     background-color: #DEC5D9;
 }
 
+.btn{
+    width: 50px;
+    height: 50px;
+}
+
+.m-2 {
+    margin:0 !important;
+}
+
 
 /* ================================== Items ================================== */
 
@@ -306,7 +315,7 @@ button {
     /* top: 2407px; */
     width: 515px;
     z-index: 1;
-    bottom: 0;
+    bottom: -40px;
 }
 
 .cos-flex{
@@ -383,6 +392,9 @@ button {
     display: block;
 } */
 
+.item-bottom{
+    display: none;
+}
 
 
 .cus-top {
