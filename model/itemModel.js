@@ -3,5 +3,6 @@ var item = {
     type : "",
     color : "",
     amount : "",
-    price : ""
+    price : "",
+    img : "",
 }

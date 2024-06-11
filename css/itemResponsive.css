@@ -1,3 +1,17 @@
+@media screen and (max-width: 1400px) {
+    .costumes-cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 100px;
+    }
+}
+
+@media screen and (max-width: 890px) {
+    .costumes-cards {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 100px;
+    }
+}
+
 @media screen and (max-width: 815px) {
     .item-box {
         height: 650px !important;
@@ -23,5 +37,14 @@
 
     .customer-box {
         width: 340px;
+    }
+
+    .cos-card {
+        width: 20rem;
+    }
+
+    .cos-img{
+        width: 19rem;
+        width: 19rem;
     }
 }

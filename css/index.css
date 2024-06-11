@@ -326,7 +326,7 @@ button {
 }
 
 .costumes-cards{
-    margin: 70px 150px;
+    margin: 40px 150px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 100px;
@@ -348,8 +348,11 @@ button {
 
 .cos-img{
     width: 23rem;
+    height: 23rem;
     margin: 10px;
     border-radius: 10px;
+    background-attachment: fixed;
+    background-position: center;
 }
 
 .color{
@@ -392,9 +395,9 @@ button {
     display: block;
 } */
 
-.item-bottom{
+/* .item-bottom{
     display: none;
-}
+} */
 
 
 .cus-top {

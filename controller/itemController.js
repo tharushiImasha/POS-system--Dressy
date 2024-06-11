@@ -95,6 +95,38 @@ function validateItemForm(){
 }
 
 
+// itemForm.addEventListener('submit', (event) => {
+//     event.preventDefault();
+
+//     if(validateItemForm()){
+//         let costumeId =  document.getElementById("costumeId").value;
+//         let type =  document.getElementById("type").value;
+//         let color =  document.getElementById("color").value;
+//         let amount =  document.getElementById("amount").value;
+//         let price =  document.getElementById("price").value;   
+//         let img =  document.getElementById("img-box").value; 
+
+//         item = {
+//             costumeId, type, color, amount, price, img
+//         }
+
+//         items.push(item);
+
+//         console.log(items);
+
+//         buildItemTable()
+
+//         createCard();
+
+//         itemForm.reset();
+//         generateItemId();
+//         loadItemIds();
+//     }
+
+    
+// });
+
+
 itemForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
@@ -103,23 +135,82 @@ itemForm.addEventListener('submit', (event) => {
         let type =  document.getElementById("type").value;
         let color =  document.getElementById("color").value;
         let amount =  document.getElementById("amount").value;
-        let price =  document.getElementById("price").value;    
+        let price =  document.getElementById("price").value;   
+        let imgInput =  document.getElementById("img"); 
 
-        item = {
-            costumeId, type, color, amount, price
+        if (imgInput.files.length > 0) {
+            const file = imgInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                const imgSrc = e.target.result;
+                item = {
+                    costumeId,
+                    type,
+                    color,
+                    amount,
+                    price,
+                    img: imgSrc
+                };
+
+                items.push(item);
+                console.log(items);
+                renderCards();
+                buildItemTable();
+
+                itemForm.reset();
+                generateItemId();
+                loadItemIds();
+            };
+
+            reader.readAsDataURL(file);
         }
-
-        items.push(item);
-
-        buildItemTable()
-
-        itemForm.reset();
-        generateItemId();
-        loadItemIds();
     }
 
     
 });
+
+function generateStars(rating) {
+    let starsHtml = '';
+    for (let i = 0; i < 5; i++) {
+        if (i < rating) {
+            starsHtml += '<span class="fa fa-star checked"></span>';
+        } else {
+            starsHtml += '<span class="fa fa-star"></span>';
+        }
+    }
+    return starsHtml;
+}
+
+const container = document.getElementById('costumes-cards');
+
+function renderCards() {
+    container.innerHTML = ''; // Clear previous cards
+    items.forEach(cardData => {
+        const card = document.createElement('div');
+        card.className = 'cos-card';
+
+        card.innerHTML = `
+            <div class="image">
+                <img src="${cardData.img}" alt="${cardData.costumeId}" class="cos-img">
+            </div>
+            <div class="card-content">
+                <h3>${cardData.type}</h3>
+                <div class="color">
+                    <div class="rating">
+                        ${generateStars(5)} <!-- Assuming a default rating -->
+                    </div>
+                    <p>Color : ${cardData.color}</p>
+                </div>
+                <p>Amount: ${cardData.amount}</p>
+                <p class="price">${cardData.price}</p>
+            </div>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
 
 let items_table = document.getElementById('my-item-table')
 
@@ -147,6 +238,7 @@ function buildItemTable(){
 function deleteItemData(index){
     items.splice(index, 1);
     buildItemTable();
+    renderCards();
 }
 
 
@@ -159,6 +251,7 @@ function updateItemData(index){
     document.getElementById("color").value = items[index].color;
     document.getElementById("amount").value = items[index].amount;
     document.getElementById("price").value = items[index].price;
+    document.getElementById("img").innerHTML = items[index].img
 
     document.querySelector('#item-update').onclick = function(){
 
@@ -170,6 +263,7 @@ function updateItemData(index){
             items[index].price = document.getElementById("price").value;
 
             buildItemTable();
+            renderCards();
             itemForm.reset();
 
             generateItemId();
