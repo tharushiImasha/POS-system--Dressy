@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/css/homeResponsive.css">
     <link rel="stylesheet" href="/css/customerResponsive.css">
     <link rel="stylesheet" href="/css/itemResponsive.css">
+    <link rel="stylesheet" href="/css/orderResponsive.css">
+
     <link
         href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
         rel="stylesheet">
@@ -384,125 +386,144 @@
         <section class="order-top">
     
             <img src="/assets/bg-girl.png" alt="girl" class="girl-img-orders">
-    
-            <div class="order-box" style="height: 590px;">
-    
-                <form id="invoice-details-form">
-                    <h2>Invoice Details</h2>
-    
-                    <div class="inputs">
-    
-                        <div class="cus-input">
-                            <div class="label-input">
-                                <label for="orderId"> Order ID : </label>
-                                <input type="text" name="orderId" id="orderId">
-                                <span class="error" id="orderIdError"></span>
-                            </div>
-    
-                            <div class="label-input">
-                                <label for="date"> Date : </label>
-                                <input type="date" name="date" id="date">
-                                <span class="error" id="dateError"></span>
-                            </div>
-                        </div>
-    
-                        <div class="cus-input">
-    
-                            <div class="label-input">
-                                <label for="cusId"> Customer ID : </label>
-                                <!-- <input type="text" name="lastName" id="lastName"> -->
-                                <select class="form-select" aria-label="Default select example" id="customerIdOrder"></select>
-                                <span class="error" id="cusIdError"></span>
-                            </div>
 
-                            <div class="label-input">
-                                <label for="first name"> Customer Name : </label>
-                                <input type="search" name="cusName" id="cusName">
-                                <span class="error" id="firstNameError"></span>
-                            </div>
+            <div class="order-cus-item">
 
-                        </div>
-    
-                        <div class="cus-input">
-    
-                            <div class="label-input">
-                                <label for="phone"> phone: </label>
-                                <input type="text" name="phone" id="cusPhone">
-                                <span class="error" id="phoneError"></span>
+                <div class="order-customer">
+
+                    <div class="order-id-date">
+                        <h2 style="color: #644592; text-align: center; font-size: 36px; margin-top: 50px; margin-bottom: 60px;">Order Details</h2>
+                        
+                        <div class="inputs">
+                        
+                            <div class="cus-input">
+
+                                <div class="cus-input">
+                                    <div class="label-input">
+                                        <label for="orderId"> Order ID : </label>
+                                        <input type="text" name="orderId" id="orderId" class="orer-inputs">
+                                        <span class="error" id="orderIdError"></span>
+                                    </div>
+            
+                                    <div class="label-input">
+                                        <label for="date"> Date : </label>
+                                        <input type="date" name="date" id="date" class="orer-inputs">
+                                        <span class="error" id="dateError"></span>
+                                    </div>
+                                </div>
                             </div>
-    
-                            <div class="label-input">
-                                <label for="address"> Address : </label>
-                                <input type="text" name="address" id="cusAddress">
-                                <span class="error" id="addressError"></span>
-                            </div>
-    
-                        </div>
-    
+                        </div>        
+
                     </div>
-    
-                </form>
-    
-            </div>
 
-            <div class="order-box">
-            
-                <form id="item-select-form">
-                    <h2>Item Select</h2>
-            
-                    <div class="inputs">
-            
-                        <div class="cus-input">
-                            <div class="label-input">
-                                <label for="orderId"> Item Code : </label>
-                                <select class="form-select" aria-label="Default select example" id="itemIdOrder"></select>
-                                <span class="error" id="itemCodeError"></span>
+                    <div class="order-box" style="height: 450px;">
+                    
+                        <form id="invoice-details-form">
+                            <h2>Customer Details</h2>
+                    
+                            <div class="inputs">
+                    
+                                <div class="cus-input">
+                    
+                                    <div class="label-input">
+                                        <label for="cusId"> Customer ID : </label>
+                                        <!-- <input type="text" name="lastName" id="lastName"> -->
+                                        <select class="form-select" aria-label="Default select example" id="customerIdOrder"
+                                            style="width: 250px !important;"></select>
+                                        <span class="error" id="cusIdError"></span>
+                                    </div>
+                    
+                                    <div class="label-input">
+                                        <label for="first name"> Customer Name : </label>
+                                        <input type="search" name="cusName" id="cusName" class="orer-inputs">
+                                        <span class="error" id="firstNameError"></span>
+                                    </div>
+                    
+                                </div>
+                    
+                                <div class="cus-input">
+                    
+                                    <div class="label-input">
+                                        <label for="phone"> phone: </label>
+                                        <input type="text" name="phone" id="cusPhone" class="orer-inputs">
+                                        <span class="error" id="phoneError"></span>
+                                    </div>
+                    
+                                    <div class="label-input">
+                                        <label for="address"> Address : </label>
+                                        <input type="text" name="address" id="cusAddress" class="orer-inputs">
+                                        <span class="error" id="addressError"></span>
+                                    </div>
+                    
+                                </div>
+                    
                             </div>
-            
-                            <div class="label-input">
-                                <label for="itemName"> Item Name : </label>
-                                <input type="text" name="itemName" id="itemName">
-                            </div>
-                        </div>
-            
-                        <div class="cus-input">
-            
-                            <div class="label-input">
-                                <label for="color"> Color : </label>
-                                <input type="text" name="color" id="itemColor">
-                            </div>
-            
-                            <div class="label-input">
-                                <label for="price"> Price : </label>
-                                <input type="text" name="price" id="itemPrice">
-                            </div>
-            
-                        </div>
-            
-                        <div class="cus-input">
-            
-                            <div class="label-input">
-                                <label for="qtyOnHand"> Qty On Hand : </label>
-                                <input type="number" name="qtyOnHand" id="itemQtyOnHand">
-                            </div>
-            
-                            <div class="label-input">
-                                <label for="orderQty"> Order Quantity : </label>
-                                <input type="number" name="orderQty" id="orderQty">
-                                <span class="error" id="orderQtyError"></span>
-                            </div>
-            
-                        </div>
-            
-                        <div class="btn-cus">
-                            <button type="button" id="addItem"> Add Item </button>
-                        </div>
-            
-            
+                    
+                        </form>
+                    
                     </div>
-            
-                </form>
-            
+
+                </div>
+
+                <div class="order-box order-item-box">
+                
+                    <form id="item-select-form">
+                        <h2>Item Select</h2>
+                
+                        <div class="inputs">
+                
+                            <div class="cus-input">
+                                <div class="label-input">
+                                    <label for="orderId"> Item Code : </label>
+                                    <select class="form-select" aria-label="Default select example" id="itemIdOrder" style="width: 250px;"></select>
+                                    <span class="error" id="itemCodeError"></span>
+                                </div>
+                
+                                <div class="label-input">
+                                    <label for="itemName"> Item Name : </label>
+                                    <input type="text" name="itemName" id="itemName" class="orer-inputs">
+                                </div>
+                            </div>
+                
+                            <div class="cus-input">
+                
+                                <div class="label-input" style="margin-bottom: 10px;">
+                                    <label for="color"> Color : </label>
+                                    <input type="text" name="color" id="itemColor" class="orer-inputs">
+                                </div>
+                
+                                <div class="label-input">
+                                    <label for="price"> Price : </label>
+                                    <input type="text" name="price" id="itemPrice" class="orer-inputs">
+                                </div>
+                
+                            </div>
+                
+                            <div class="cus-input">
+                
+                                <div class="label-input">
+                                    <label for="qtyOnHand"> Qty On Hand : </label>
+                                    <input type="number" name="qtyOnHand" id="itemQtyOnHand" class="orer-inputs">
+                                </div>
+                
+                                <div class="label-input">
+                                    <label for="orderQty"> Order Quantity : </label>
+                                    <input type="number" name="orderQty" id="orderQty" class="orer-inputs">
+                                    <span class="error" id="orderQtyError"></span>
+                                </div>
+                
+                            </div>
+                
+                            <div class="btn-cus">
+                                <button type="button" id="addItem"> Add Item </button>
+                            </div>
+                
+                
+                        </div>
+                
+                    </form>
+                
+                </div>
             </div>
 
             <div class="invoice" style="height: 590px;">

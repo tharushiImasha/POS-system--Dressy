@@ -230,8 +230,8 @@ function buildOrderTable(){
         <td>${orderQty}</td>
         <td>${orderTotal}</td>
         <td>
-            <button onclick="deleteRow(this)" class="btn btn-danger">Delete</button>
-            <button onclick="editRow(this)" class="btn btn-warning m-2">Edit</button>
+            <button onclick="deleteRow(this)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            <button onclick="editRow(this)" class="btn btn-warning m-2"><i class="fa fa-pencil" aria-hidden="true"></i></button>
         </td>
     `;
     orderTableBody.appendChild(row);

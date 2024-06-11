@@ -1,0 +1,59 @@
+@media screen and (max-width: 1550px) {
+    .order-cus-item {
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+    }
+}
+
+@media screen and (max-width: 710px) {
+    .order-box, .order-id-date, .invoice{
+        width: 600px;
+    }
+}
+
+@media screen and (max-width: 670px) {
+
+    .order-box,
+    .order-id-date,
+    .invoice {
+        width: 450px;
+    }
+
+    .order-box{
+        height: 600px !important;
+    }
+
+    .order-id-date{
+        height: 400px !important;
+    }
+
+    .order-item-box{
+        height: 810px !important;
+    }
+
+    .invoice{
+        height: 500px !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+
+    .order-box,
+    .order-id-date,
+    .invoice {
+        width: 300px;
+    }
+
+    .girl-img-orders {
+        width: 350px;
+    }
+
+    #checkOrders{
+        width: 260px !important;
+    }
+
+    .table-hover{
+        overflow-x: auto;
+    }
+}

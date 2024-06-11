@@ -225,6 +225,10 @@
         font-size: 32px;
     }
 
+    header{
+        margin-top: 10px;
+    }
+
     .grid-cont>h2 {
         font-size: 50px;
         letter-spacing: 5px;
