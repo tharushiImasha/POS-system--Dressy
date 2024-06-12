@@ -182,3 +182,32 @@ function updateData(index){
 
     }
 }
+
+
+$("#cusId").keydown(function (e) {
+
+    if(e.keyCode == 16) {
+
+        let id = document.getElementById("cusId").value;
+        
+        for (let i = 0; i < customers.length; i++) {
+            if(id === customers[i].cusId){
+
+                console.log("id = "+id)
+
+                document.getElementById("cusId").value = customers[i].cusId;
+                document.getElementById("fullName").value = customers[i].fullName;
+                document.getElementById("email").value = customers[i].email;
+                document.getElementById("address").value = customers[i].address;
+                document.getElementById("phone").value = customers[i].phone;
+
+            }
+        }
+
+        if(id == ""){
+            customerForm.reset();
+            generateId();
+        }
+    }
+    
+});                                                                                                                 

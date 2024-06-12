@@ -251,7 +251,7 @@ function updateItemData(index){
     document.getElementById("color").value = items[index].color;
     document.getElementById("amount").value = items[index].amount;
     document.getElementById("price").value = items[index].price;
-    document.getElementById("img").innerHTML = items[index].img
+    document.getElementById("img").src = items[index].img
 
     document.querySelector('#item-update').onclick = function(){
 
@@ -276,3 +276,33 @@ function updateItemData(index){
 
     }
 }
+
+
+$("#costumeId").keydown(function (e) {
+
+    if(e.keyCode == 16) {
+
+        let id = document.getElementById("costumeId").value;
+        
+        for (let i = 0; i < items.length; i++) {
+            if(id === items[i].costumeId){
+
+                console.log("id = "+id)
+
+                document.getElementById("costumeId").value = items[i].costumeId;
+                document.getElementById("type").value = items[i].type;
+                document.getElementById("color").value = items[i].color;
+                document.getElementById("amount").value = items[i].amount;
+                document.getElementById("price").value = items[i].price;
+                document.getElementById("img").innerHTML = items[i].img
+
+            }
+        }
+
+        if(id == ""){
+            itemForm.reset();
+            generateItemId();
+        }
+    }
+    
+})

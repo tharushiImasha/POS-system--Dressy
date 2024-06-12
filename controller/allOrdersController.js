@@ -32,17 +32,16 @@ function buildAllOrderTable(currentArr){
 
 }
 
-
-
 document.getElementById("search").addEventListener("keyup", function(){
     let search = this.value.toLowerCase();
 
+    // Ensure the search string is compared properly, even if the fields are numbers
     newArr = orders.filter(function(val){
-        if(val.orderId.includes(search) || val.cusId.includes(search) || val.orderTotal.includes(search) || val.date.includes(search)){
-            let newObj = {orderId : val.orderId, cusId : val.cusId, orderTotal : val.orderTotal, date : val.date}
-            return newObj;
-        }
-    })
+        return val.orderId.toLowerCase().includes(search) || 
+               val.cusId.toLowerCase().includes(search) || 
+               val.orderTotal.toString().toLowerCase().includes(search) || 
+               val.date.toLowerCase().includes(search);
+    });
 
     buildAllOrderTable(newArr);
-})
+});

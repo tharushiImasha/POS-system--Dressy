@@ -342,15 +342,12 @@ function validateInvoiceForm(){
 
 $("#discount").keydown(function (e) {
     if(e.keyCode == 13) {
+        
         const discount = document.getElementById('discount').value;
+
         const totalSum = getTotalColumnSum(); // Get the total sum of the order
         const discountedTotal = applyDiscount(totalSum, discount);
         document.getElementById('subTotal').innerHTML = "Rs. " +discountedTotal.toFixed(2); // Update the subtotal field
-
-        if(discount == ""){
-            discountedTotal = totalSum;
-            document.getElementById('subTotal').innerHTML = "Rs. " +discountedTotal.toFixed(2);
-        }
     }
     
 });
@@ -367,16 +364,18 @@ function checkCash(){
     let cash = parseFloat(document.getElementById('cash').value);
     console.log("cash :"+ cash)
 
-    let subTotal = parseFloat(document.getElementById('subTotal').innerHTML);
+    let subTotalString = document.getElementById('subTotal').innerHTML;
+    let subTotal = parseFloat(subTotalString.split("Rs. ")[1]);
     console.log("discount :"+ subTotal)
 
     if (isNaN(cash) || isNaN(subTotal) || cash < subTotal){
         $("#cashError").text("Not enough cash amount");
         $("#cash").css("border-color",  "red");
+        console.log("nhhhh")
         return false;
     }else{
-        $("#orderQtyError").text("");
-        $("#orderQty").css("border-color",  "#644592");
+        $("#cashError").text("");
+        $("#cash").css("border-color",  "#644592");
     }
 
     return true;
@@ -392,7 +391,7 @@ $("#cash").keydown(function (e){
     let subTotal = parseFloat(subTotalString.split("Rs. ")[1]);
 
     if(e.keyCode == 13) {
-        if(checkCash){
+        if(checkCash()){
             let balance = cash - subTotal;
             document.getElementById('balance').value = balance;
         }
