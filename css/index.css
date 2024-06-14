@@ -89,6 +89,10 @@ a {
     display: none;
 }
 
+.dropdown{
+    display: none;
+}
+
 .girl{
     display: flex;
     justify-content: center;
