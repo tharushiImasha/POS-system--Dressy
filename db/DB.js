@@ -1,5 +1,7 @@
 const customers = [];
 
-const items = [];
+// const items = [];
 
 const orders = [];
+
+const orderDetails = [];
