@@ -1,36 +1,42 @@
 const allOrderTableBody = document.getElementById('all-order-table').querySelector('tbody');
 
-// function buildAllOrderTable(){
+document.querySelector('#checkOrders').onclick = function() {
+    $.ajax({
+        url: "http://localhost:8080/Dressy/order",
+        type: "GET",
+        headers: {"Content-Type": "application/json"},
+        success: function(res) {
+            console.log('Response:', res); 
+            buildAllOrderTable(res);
+        },
+        error: function(err) {
+            console.error('Failed to fetch order data:', err);
+        }
+    });
+}
 
-//     allOrderTableBody.innerHTML = '';
-//     orders.forEach(function (element, index) {
-//         const row = document.createElement('tr');
-//         row.innerHTML = `
-//             <td>${element.orderId}</td>
-//             <td>${element.cusId}</td>
-//             <td>${element.orderTotal}</td>
-//             <td>${element.date}</td>
-//         `;
-//         allOrderTableBody.appendChild(row);
-//     });
-
-// }
-
-function buildAllOrderTable(currentArr){
+function buildAllOrderTable(allOrders) {
+    console.log("Received orders:", allOrders);
 
     allOrderTableBody.innerHTML = "";
 
-    for(let i = 0; i < currentArr.length; i++){
-        allOrderTableBody.innerHTML += `<tr> 
-            <td>${currentArr[i].orderId}</td>
-            <td>${currentArr[i].cusId}</td>
-            <td>${currentArr[i].orderTotal}</td>
-            <td>${currentArr[i].date}</td>
-        </tr>`
-        
-    }    
+    if (!Array.isArray(allOrders)) {
+        console.error('Expected an array but got:', allOrders);
+        return;
+    }
 
+    allOrders.forEach(function(element) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${element.order_id}</td>
+            <td>${element.cus_id}</td>
+            <td>${element.total}</td>
+            <td>${element.date}</td>
+        `;
+        allOrderTableBody.appendChild(row);
+    });
 }
+
 
 document.getElementById("search").addEventListener("keyup", function(){
     let search = this.value.toLowerCase();

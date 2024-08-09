@@ -94,7 +94,7 @@ document.getElementById("orders-m").addEventListener("click", function(){
     document.getElementById("all-orders").style.display = "none";
 })
 
-document.getElementById("checkOrders-m").addEventListener("click", function(){
+document.getElementById("checkOrders").addEventListener("click", function(){
     document.getElementById("home-page").style.display = "none";
     document.getElementById("customers-page").style.display = "none";
     document.getElementById("items-page").style.display = "none";

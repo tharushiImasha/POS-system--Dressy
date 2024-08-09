@@ -6,18 +6,25 @@ document.getElementById("item-update").style.display = "none"
 if(items.length == 0){
     document.getElementById("costumeId").value = 'I00-001';
 }else{
-    generateItemId()
+    fetchItems();
 }
 
-function generateItemId(){
-    let currentItemId = items[items.length-1].costumeId;
-    let prefixItem = currentItemId.slice(0, 4); // get the prefix 'C00-'
-    let itemNumPart = parseInt(currentItemId.slice(4), 10); // get the numerical part, e.g., 1
-    let newitemNumPart = (itemNumPart + 1).toString().padStart(3, '0'); // increment and pad with zeros if necessary
-    let newItemId = prefixItem + newitemNumPart;
-    $('#costumeId').val(newItemId);
+function getNextItemId(itemData) {
+    let maxIdNum = 0;
+    itemData.forEach(item => {
+        let idNum = parseInt(item.costume_id.split('-')[1]);
+        if (idNum > maxIdNum) {
+            maxIdNum = idNum;
+        }
+    });
+    return generateItemId(maxIdNum + 1);
 }
 
+function generateItemId(idNum) {
+    let idStr = idNum.toString().padStart(3, '0'); // Pad the number to 3 digits
+    let newId = `I00-${idStr}`;
+    $('#costumeId').val(newId);
+}
 
 function validateItemForm(){
     let costumeId =  document.getElementById("costumeId").value;
@@ -95,36 +102,22 @@ function validateItemForm(){
 }
 
 
-// itemForm.addEventListener('submit', (event) => {
-//     event.preventDefault();
+function fetchItems() {
 
-//     if(validateItemForm()){
-//         let costumeId =  document.getElementById("costumeId").value;
-//         let type =  document.getElementById("type").value;
-//         let color =  document.getElementById("color").value;
-//         let amount =  document.getElementById("amount").value;
-//         let price =  document.getElementById("price").value;   
-//         let img =  document.getElementById("img-box").value; 
-
-//         item = {
-//             costumeId, type, color, amount, price, img
-//         }
-
-//         items.push(item);
-
-//         console.log(items);
-
-//         buildItemTable()
-
-//         createCard();
-
-//         itemForm.reset();
-//         generateItemId();
-//         loadItemIds();
-//     }
-
-    
-// });
+    $.ajax({
+        url: "http://localhost:8080/Dressy/item",
+        type: "GET",
+        headers: {"Content-Type": "application/json"},
+        success: function(res) {
+            console.log('Response:', res); // Log the response to verify it's an array
+            buildItemTable(res);
+            getNextItemId(res);
+        },
+        error: function(err) {
+            console.error('Failed to fetch customers data:', err);
+        }
+    });
+}
 
 
 itemForm.addEventListener('submit', (event) => {
@@ -138,37 +131,35 @@ itemForm.addEventListener('submit', (event) => {
         let price =  document.getElementById("price").value;   
         let imgInput =  document.getElementById("img"); 
 
-        if (imgInput.files.length > 0) {
-            const file = imgInput.files[0];
-            const reader = new FileReader();
+        const itemData = {
+            costume_id:costumeId,
+            type:type,
+            color:color,
+            amount:amount,
+            price:price
+        };
 
-            reader.onload = (e) => {
-                const imgSrc = e.target.result;
-                item = {
-                    costumeId,
-                    type,
-                    color,
-                    amount,
-                    price,
-                    img: imgSrc
-                };
+        const itemJson = JSON.stringify(itemData);
 
-                items.push(item);
-                console.log(items);
-                renderCards();
-                buildItemTable();
+        $.ajax({
+            url: "http://localhost:8080/Dressy/item",
+            type: "POST",
+            data: itemJson,
+            headers: {"Content-Type": "application/json"},
+            success:(res) => {
+                console.log(JSON.stringify(res));
+                fetchItems();
+            },
+            Error: (res) => {
+                console.error(res);
+            }
+        });
 
-                itemForm.reset();
-                generateItemId();
-                loadItemIds();
-            };
-
-            reader.readAsDataURL(file);
-        }
+        itemForm.reset();
     }
 
-    
 });
+
 
 function generateStars(rating) {
     let starsHtml = '';
@@ -214,20 +205,25 @@ function renderCards() {
 
 let items_table = document.getElementById('my-item-table')
 
-function buildItemTable(){
+function buildItemTable(allItems){
+
+    if (!Array.isArray(allItems)) {
+        console.error('Expected an array but got:', allItems);
+        return;
+    }
 
     itemTableBody.innerHTML = '';
-    items.forEach(function (element, index) {
+    allItems.forEach(function (element) {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${element.costumeId}</td>
+            <td>${element.costume_id}</td>
             <td>${element.type}</td>
             <td>${element.color}</td>
             <td>${element.amount}</td>
             <td>${element.price}</td>
             <td class = "actionBtn">
-                <button onclick="deleteItemData(${index})" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                <button onclick="updateItemData(${index})" class="btn btn-warning m-2"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                <button onclick="deleteItemData('${element.costume_id}')" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                <button onclick='populateItemForm(${JSON.stringify(element)})' class="btn btn-warning m-2"><i class="fa fa-pencil" aria-hidden="true"></i></button>
             </td>
         `;
         itemTableBody.appendChild(row);
@@ -235,48 +231,83 @@ function buildItemTable(){
 
 }
 
-function deleteItemData(index){
-    items.splice(index, 1);
-    buildItemTable();
-    renderCards();
-}
+$(document).ready(fetchItems);
 
 
-function updateItemData(index){
-    document.getElementById("item-update").style.display = "block"
-    document.getElementById("item-add").style.display = "none"
-
-    document.getElementById("costumeId").value = items[index].costumeId;
-    document.getElementById("type").value = items[index].type;
-    document.getElementById("color").value = items[index].color;
-    document.getElementById("amount").value = items[index].amount;
-    document.getElementById("price").value = items[index].price;
-    document.getElementById("img").src = items[index].img
-
-    document.querySelector('#item-update').onclick = function(){
-
-        if(validateItemForm()){
-            items[index].costumeId = document.getElementById("costumeId").value;
-            items[index].type = document.getElementById("type").value;
-            items[index].color = document.getElementById("color").value;
-            items[index].amount = document.getElementById("amount").value;
-            items[index].price = document.getElementById("price").value;
-
-            buildItemTable();
-            renderCards();
-            itemForm.reset();
-
-            generateItemId();
-
-            document.getElementById("item-update").style.display = "none"
-            document.getElementById("item-add").style.display = "block"
-
-            document.querySelector('#item-update').onclick = null;
-        }
-
+function deleteItemData(id) {
+    // Ask for confirmation before proceeding with the delete
+    if (confirm("Are you sure you want to delete this item?")) {
+        $.ajax({
+            url: `http://localhost:8080/Dressy/item?costume_id=${id}`,
+            type: "DELETE",
+            success: function(res) {
+                console.log('Delete Response:', res);
+                fetchItems();
+            },
+            error: function(err) {
+                console.error('Failed to delete item:', err);
+            }
+        });
+    } else {
+        console.log('Delete action canceled');
     }
 }
 
+
+
+function populateItemForm(itm) {
+
+    document.getElementById('costumeId').value = itm.costume_id;
+    document.getElementById('type').value = itm.type;
+    document.getElementById('color').value = itm.color;
+    document.getElementById('amount').value = itm.amount;
+    document.getElementById('price').value = itm.price;
+
+    document.getElementById("item-update").style.display = "block"
+    document.getElementById("item-add").style.display = "none"
+}
+
+document.querySelector('#item-update').onclick = function(){
+
+    const itemData = {
+        costume_id:document.getElementById('costumeId').value,
+        type:document.getElementById('type').value,
+        color:document.getElementById('color').value,
+        amount:document.getElementById('amount').value,
+        price:document.getElementById('price').value
+    };
+
+    const itemJson = JSON.stringify(itemData);
+
+    $.ajax({
+        url: "http://localhost:8080/Dressy/item",
+        type: "PUT",
+        data: itemJson,
+        headers: {"Content-Type": "application/json"},
+        success: function(res, status, xhr) {
+            if (xhr.status === 204) { // No Content
+                console.log('Update item successfully');
+                fetchItems(); // Refresh the table after update
+            } else {
+                console.error('Failed to update item:', res);
+            }
+        },
+        error: function(err) {
+            console.error('Failed to update item:', err);
+            if (err.responseText) {
+                console.log('Error details:', err.responseText); // Log detailed error response
+            }
+        }
+    });
+
+    document.getElementById("item-update").style.display = "none"
+    document.getElementById("item-add").style.display = "block"
+
+    document.querySelector('#item-update').onclick = null;
+
+    customerForm.reset();
+
+}
 
 $("#costumeId").keydown(function (e) {
 
@@ -301,7 +332,7 @@ $("#costumeId").keydown(function (e) {
 
         if(id == ""){
             itemForm.reset();
-            generateItemId();
+            // generateItemId();
         }
     }
     

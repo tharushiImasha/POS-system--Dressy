@@ -6,15 +6,23 @@ document.getElementById("cus-update").style.display = "none"
 if(customers.length == 0){
     document.getElementById("cusId").value = 'C00-001';
 }else{
-    generateId()
+    fetchCustomers();
 }
 
-function generateId(){
-    let currentId = customers[customers.length-1].cusId;
-    let prefix = currentId.slice(0, 4); // get the prefix 'C00-'
-    let numPart = parseInt(currentId.slice(4), 10); // get the numerical part, e.g., 1
-    let newNumPart = (numPart + 1).toString().padStart(3, '0'); // increment and pad with zeros if necessary
-    let newId = prefix + newNumPart;
+function getNextCustomerId(customerData) {
+    let maxIdNum = 0;
+    customerData.forEach(customer => {
+        let idNum = parseInt(customer.cus_id.split('-')[1]);
+        if (idNum > maxIdNum) {
+            maxIdNum = idNum;
+        }
+    });
+    return generateCusId(maxIdNum + 1);
+}
+
+function generateCusId(idNum) {
+    let idStr = idNum.toString().padStart(3, '0'); // Pad the number to 3 digits
+    let newId = `C00-${idStr}`;
     $('#cusId').val(newId);
 }
 
@@ -94,6 +102,22 @@ function validateForm(){
     return true;
 }
 
+function fetchCustomers() {
+    $.ajax({
+        url: "http://localhost:8080/Dressy/customer",
+        type: "GET",
+        headers: {"Content-Type": "application/json"},
+        success: function(res) {
+            console.log('Response:', res); // Log the response to verify it's an array
+            buildTable(res);
+            getNextCustomerId(res);
+        },
+        error: function(err) {
+            console.error('Failed to fetch customers data:', err);
+        }
+    });
+}
+
 
 customerForm.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -105,82 +129,133 @@ customerForm.addEventListener('submit', (event) => {
         let address =  document.getElementById("address").value;
         let phone =  document.getElementById("phone").value;    
 
-        customer = {
-            cusId, fullName, email, address, phone
-        }
+        const cusData = {
+            cus_id:cusId,
+            name:fullName,
+            email:email,
+            address:address,
+            phone:phone
+        };
 
-        customers.push(customer);
+        const customerJson = JSON.stringify(cusData);
 
-        buildTable()
+        $.ajax({
+            url: "http://localhost:8080/Dressy/customer",
+            type: "POST",
+            data: customerJson,
+            headers: {"Content-Type": "application/json"},
+            success:(res) => {
+                console.log(JSON.stringify(res));
+                fetchCustomers()
+            },
+            Error: (res) => {
+                console.error(res);
+            }
+        });
 
         customerForm.reset();
-        generateId();
-        loadCusIds();
-    }
+        fetchCustomers();
 
+    }
     
 });
 
-let table = document.getElementById('my-table')
-
-function buildTable(){
+function buildTable(customers) {
+    if (!Array.isArray(customers)) {
+        console.error('Expected an array but got:', customers);
+        return;
+    }
 
     customersTableBody.innerHTML = '';
-    customers.forEach(function (element, index) {
+    customers.forEach(function (element) {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${element.cusId}</td>
-            <td>${element.fullName}</td>
-            <td class = "emailJs">${element.email}</td>
+            <td>${element.cus_id}</td>
+            <td>${element.name}</td>
+            <td class="emailJs">${element.email}</td>
             <td>${element.address}</td>
             <td>${element.phone}</td>
-            <td class = "actionBtn">
-                <button onclick="deleteData(${index})" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                <button onclick="updateData(${index})" class="btn btn-warning m-2"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+            <td class="actionBtn">
+                <button onclick="deleteData('${element.cus_id}')" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                <button onclick='populateForm(${JSON.stringify(element)})' class="btn btn-warning m-2"><i class="fa fa-pencil" aria-hidden="true"></i></button>
             </td>
         `;
         customersTableBody.appendChild(row);
     });
-
-}
-
-function deleteData(index){
-    customers.splice(index, 1);
-    buildTable();
 }
 
 
-function updateData(index){
+// Call fetchCustomers when the page loads or when you need to refresh the table
+$(document).ready(fetchCustomers);
+
+function deleteData(cusId){
+    console.log(cusId)
+    $.ajax({
+        url: `http://localhost:8080/Dressy/customer?cus_id=${cusId}`,
+        type: "DELETE",
+        success: function(res) {
+            console.log('Delete Response:', res);
+            fetchCustomers()
+        },
+        error: function(err) {
+            console.error('Failed to delete customer:', err);
+        }
+    });
+    
+}
+
+function populateForm(cus) {
+    document.getElementById('cusId').value = cus.cus_id;
+    document.getElementById('fullName').value = cus.name;
+    document.getElementById('email').value = cus.email;
+    document.getElementById('address').value = cus.address;
+    document.getElementById('phone').value = cus.phone;
+
     document.getElementById("cus-update").style.display = "block"
     document.getElementById("cus-add").style.display = "none"
+}
 
-    document.getElementById("cusId").value = customers[index].cusId;
-    document.getElementById("fullName").value = customers[index].fullName;
-    document.getElementById("email").value = customers[index].email;
-    document.getElementById("address").value = customers[index].address;
-    document.getElementById("phone").value = customers[index].phone;
 
-    document.querySelector('#cus-update').onclick = function(){
+document.querySelector('#cus-update').onclick = function(){
 
-        if(validateForm()){
-            customers[index].cusId = document.getElementById("cusId").value;
-            customers[index].fullName = document.getElementById("fullName").value;
-            customers[index].email = document.getElementById("email").value;
-            customers[index].address = document.getElementById("address").value;
-            customers[index].phone = document.getElementById("phone").value;
+    const customerData = {
+        cus_id:document.getElementById('cusId').value,
+        name:document.getElementById('fullName').value,
+        email:document.getElementById('email').value,
+        address:document.getElementById('address').value,
+        phone:document.getElementById('phone').value
+    };
 
-            buildTable();
-            customerForm.reset();
+    const customerJson = JSON.stringify(customerData);
 
-            generateId();
+    console.log(JSON.stringify(customerData))
 
-            document.getElementById("cus-update").style.display = "none"
-            document.getElementById("cus-add").style.display = "block"
-
-            document.querySelector('#cus-update').onclick = null;
+    $.ajax({
+        url: "http://localhost:8080/Dressy/customer",
+        type: "PUT",
+        data: customerJson,
+        headers: {"Content-Type": "application/json"},
+        success: function(res, status, xhr) {
+            if (xhr.status === 204) { // No Content
+                console.log('Update customer successfully');
+                fetchCustomers(); // Refresh the table after update
+            } else {
+                console.error('Failed to update customer:', res);
+            }
+        },
+        error: function(err) {
+            console.error('Failed to update customer:', err);
+            if (err.responseText) {
+                console.log('Error details:', err.responseText); // Log detailed error response
+            }
         }
+    });
 
-    }
+    document.getElementById("cus-update").style.display = "none"
+    document.getElementById("cus-add").style.display = "block"
+
+    customerForm.reset();
+    
 }
 
 
@@ -210,4 +285,4 @@ $("#cusId").keydown(function (e) {
         }
     }
     
-});                                                                                                                 
+});  
